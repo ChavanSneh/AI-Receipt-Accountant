@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+opencv-python-headless
+pytesseract
+pandas
+langchain
+langchain-community
+langchain-huggingface
+chromadb
+sentence-transformers
