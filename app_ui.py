@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
+from database import get_all_items, delete_item, update_item
 
 st.title("🛒 AI Receipt Accountant (Database-Synced)")
 
@@ -28,6 +29,42 @@ with col2:
 if st.button("Add to Ledger"):
     requests.post("http://localhost:8000/ledger/add", params={"name": item_name, "price": item_price})
     st.rerun() # Refresh to show new data
+
+    # Fetch the list of items from your database
+items = get_all_items()
+
+# Loop through each individual item dictionary
+for item in items:
+    # Now 'item' is defined and has keys: 'id', 'name', 'price'
+    st.write(f"Item: {item['name']} | Price: {item['price']}")
+    
+    # Now your buttons will work because 'item['id']' exists
+
+# Assuming 'item' is an object from your database (id, name, price)
+with st.expander(f"{item['name']} - {item['price']}"):
+    
+# --- DELETE SECTION ---
+# We use a button that triggers a confirmation
+ if st.button("Delete this item", key=f"del_{item['id']}"):
+        st.warning(f"Are you sure you want to delete {item['name']}?")
+        col1, col2 = st.columns(2)
+if col1.button("Yes", key=f"yes_del_{item['id']}"):
+            delete_item(item['id']) # Call your database function
+            st.rerun()
+if col2.button("No", key=f"no_del_{item['id']}"):
+            st.info("Delete cancelled.")
+            
+    # --- EDIT SECTION ---
+if st.button("Edit this item", key=f"edit_{item['id']}"):
+        # Open a form to get new data
+        with st.form(key=f"form_{item['id']}"):
+            new_name = st.text_input("New Name", value=item['name'])
+            new_price = st.number_input("New Price", value=item['price'])
+            submit = st.form_submit_button("Confirm Edit?")
+            
+if submit:
+                update_item(item['id'], new_name, new_price)
+                st.rerun()
 
 # FETCH AND DISPLAY DATA
 response = requests.get("http://localhost:8000/ledger")
