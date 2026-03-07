@@ -1,40 +1,27 @@
-🛒 AI Receipt Accountant
-An automated expense tracker that uses OCR (Optical Character Recognition) to read receipts and an SQLite database inside a Docker container to keep a persistent ledger of your shopping.
-🚀 Features
- * AI Receipt Scanning: Upload images (JPG/PNG) of receipts to extract item names and prices.
- * Persistent Ledger: Data is saved to a local SQLite database (ledger.db) inside Docker, so it survives app restarts.
- * Real-time UI: Built with Streamlit for a smooth, interactive experience.
- * Data Export: Download your entire shopping history as a CSV file.
-🛠️ Tech Stack
- * Frontend: Streamlit
- * Backend: FastAPI
- * Database: SQLite
- * Containerization: Docker
- * OCR: Python-tesseract / Google Vision (depending on your main.py setup)
-📦 How to Run
-1. Start the Backend (The Brain)
-Build and run the Docker container to handle the OCR and Database:
-# Build the image
-docker build -t receipt-api .
+# 🛒 AI Receipt Accountant (2026 Edition)
 
-# Run the container (Mapping port 8000)
-docker run -p 8000:8000 receipt-api
+An automated financial pipeline that turns receipt images into a searchable digital ledger. This isn't just a script; it's a **containerized AI system**.
 
-2. Start the Frontend (The Face)
-Open a new terminal and run the Streamlit app:
-# Install requirements locally
-pip install -r requirements.txt
+## 🚀 Key Features
+* **AI Vision:** Extracts item names and prices from JPG/PNG uploads.
+* **Smart Memory:** Uses **ChromaDB** for vector-based search (Search for "snacks" and find the "Chips" receipt).
+* **Dockerized:** Runs in a consistent environment using a single Docker image.
+* **Export Ready:** Download your entire history as a CSV for Excel.
 
-# Launch the app
-streamlit run app.py
+## 🏗️ The System Architecture
+This project is built using a **Modular Design** (Decoupled Architecture):
+* **`app_ui.py`**: The "Face" (Frontend) built with Streamlit.
+* **`engine.py`**: The "Brain" (Logic) that processes the OCR.
+* **`memory.py`**: The "Memory" (Vector DB) using ChromaDB.
+* **`database.py`**: The "Storage" (SQL) for the permanent ledger.
 
-📂 Project Structure
- * app.py: Streamlit UI logic.
- * main.py: FastAPI endpoints for processing images and managing the database.
- * database.py: Logic for creating tables and saving/fetching ledger data.
- * Dockerfile: Instructions to containerize the backend.
- * requirements.txt: Python dependencies.
-📝 Future Improvements
- * [ ] Add Category classification (Food, Electronics, etc.).
- * [ ] Support for multi-page PDF receipts.
- * [ ] Monthly spending charts using Plotly.
+## 🛠️ Tech Stack
+* **Language:** Python 3.10-slim
+* **Framework:** FastAPI & Streamlit
+* **AI/OCR:** Tesseract & ChromaDB (Vector Store)
+* **Infrastructure:** Docker
+
+## 📦 Quick Start (The Orchestrator Move)
+1. **Build the Box:** `docker build -t receipt-api .`
+2. **Launch the API:** `docker run -p 8000:8000 receipt-api`
+3. **Run the UI:** `streamlit run app_ui.py`
