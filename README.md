@@ -25,8 +25,6 @@ The project is split into a modular backend and an interactive frontend:
 Launch the Frontend:
 Open a second terminal in the project root:
 
-Bash
-
 streamlit run ui/dashboard.py
 🛠 Troubleshooting Guide
 "ModuleNotFoundError: No module named 'app...'"
