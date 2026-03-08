@@ -1,5 +1,16 @@
 __pycache__/
-ledger.db
-.env
-.venv/
-.ipynb_checkpoints/
+*.pyc
+crewai_env/
+venv/
+
+# streamlit cache
+.streamlit/
+
+# local data
+data/
+*.db
+chroma_db/
+*.sqlite
+
+# mac / linux junk
+.DS_Store
