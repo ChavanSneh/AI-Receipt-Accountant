@@ -10,7 +10,7 @@ venv/
 data/
 *.db
 chroma_db/
-*.sqlite
+*.sqlite3
 
 # mac / linux junk
 .DS_Store
