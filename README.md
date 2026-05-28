@@ -1,41 +1,47 @@
-# 💰 AI Receipt Ledger
+# 💰 AI Receipt Accountant
 
-A full-stack application that processes receipt images using OCR, extracts item data via LLM, and manages a persistent inventory in a SQLite database.
+An intelligent, full-stack expense parsing engine that automates receipt digitisation. The system ingests receipt images using OCR, orchestrates structural data extraction via an LLM, and manages a persistent financial inventory.
 
-## 🏗 System Architecture
-The project is split into a modular backend and an interactive frontend:
-- **Backend:** FastAPI (handles image processing, LLM logic, and database operations).
-- **Frontend:** Streamlit (user dashboard for uploading, viewing, and deleting items).
-- **Database:** SQLite (persistent storage for your ledger).
+---
 
+## 🏗️ System Architecture
 
+The project features a highly decoupled, modular architecture designed for high-throughput data processing:
+
+*   **Backend (FastAPI):** Orchestrates image processing pipelines, handles LLM reasoning layers, and manages database operations.
+  
+*   **Frontend (Streamlit):** An interactive user dashboard for real-time receipt uploading, structured accountant viewing, and row-level record deletion.
+  
+*   **Database (SQLite):** Persistent relational storage layer for consistent accountant management.
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.11+
-- Install dependencies:
-  `pip install fastapi uvicorn streamlit requests pandas opencv-python sqlalchemy`
+*   Python 3.11+
+*   Install core dependencies:
+       pip install fastapi uvicorn streamlit requests pandas opencv-python sqlalchemy
 
 ### Running the App
-1. **Launch the Backend:**
-   Open a terminal in the project root:
-   ```bash
-   uvicorn app.main:app --reload
-Launch the Frontend:
-Open a second terminal in the project root:
 
-streamlit run ui/dashboard.py
-🛠 Troubleshooting Guide
-"ModuleNotFoundError: No module named 'app...'"
-If you encounter import errors, ensure you are running your commands from the root directory (where the app/ and ui/ folders live). Your project is structured as a Python package, so Python needs to be able to see the app/ folder as a module.
+1.  **Launch the Backend Service**
+    uvicorn app.main:app --reload
+    ```
+2.  **Launch the Frontend Dashboard**
 
-"404 Not Found" during deletion
-This error typically indicates that the ID passed from the frontend does not match the record in the database.
+    streamlit run ui/dashboard.py
+    ```
 
-Ensure your delete_item_by_id function in database.py is correctly executing the DELETE SQL command.
+---
 
-If the ledger becomes inconsistent, use the /ledger/clear endpoint to wipe the database and start fresh.
+## 🛠️ Troubleshooting Guide
 
-"Label got an empty value" (Streamlit Warning)
-If you see terminal warnings regarding empty labels, check that all st.checkbox components have label_visibility="collapsed" and a non-empty string for the label.
+> 💡 **Tip:** Always execute commands directly from the root directory to maintain correct package paths.
+
+| Issue | Root Cause | Resolution |
+| :--- | :--- | :--- |
+| **`ModuleNotFoundError: No module named 'app...'`** | Commands executed outside root directory; Python cannot see `app/` as a package. | Ensure your terminal is in the project root before running servers. |
+| **`404 Not Found` during deletion** | Frontend ID mismatch with the active database record. | Verify `delete_item_by_id` in `database.py` is executing the `DELETE` SQL command correctly. |
+| **Accountant state inconsistency** | Corrupted or out-of-sync local database rows. | Hit the `/ledger/clear` endpoint to safely wipe the database and start fresh. |
+| **`Label got an empty value`** | Streamlit warning regarding hidden checkbox UI elements. | Ensure all `st.checkbox` components have `label_visibility="collapsed"` and a non-empty string label. |
